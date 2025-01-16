@@ -13,11 +13,10 @@ router.post("/week", async (req, res) => {
                 $lte: new Date(weekRange[6]),
             },
         })
-            .populate("vehicleId", "name") // Fetch name from Vehicle model
-            .populate("driverId", "name role") // Fetch name and role from Crew model (Driver)
-            .populate("conductorId", "name role"); // Fetch name and role from Crew model (Conductor)
+            .populate("vehicleId", "name")
+            .populate("driverId", "name role")
+            .populate("conductorId", "name role");
 
-        // Group duties by date
         const groupedDuties = weekRange.map((day) => ({
             date: day,
             duties: duties
@@ -40,9 +39,9 @@ router.post("/week", async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const duties = await Duty.find()
-            .populate('vehicleId', 'vehicleName vehicleType') // Replace with actual fields in Vehicle
-            .populate('driverId', 'name role') // Replace with actual fields in Crew
-            .populate('conductorId', 'name role'); // Replace with actual fields in Crew
+            .populate('vehicleId', 'name')
+            .populate('driverId', 'name role')
+            .populate('conductorId', 'name role');
         res.json(duties);
     } catch (err) {
         res.status(500).json({ message: err.message });

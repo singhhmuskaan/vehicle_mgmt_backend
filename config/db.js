@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI, {
-            // dbName: "vehicle_duty_db",
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
