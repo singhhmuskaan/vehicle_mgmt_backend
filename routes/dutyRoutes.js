@@ -14,8 +14,8 @@ router.post("/week", async (req, res) => {
             },
         })
             .populate("vehicleId", "name")
-            .populate("driverId", "name role")
-            .populate("conductorId", "name role");
+            .populate("driverId", "name")
+            .populate("conductorId", "name");
 
         const groupedDuties = weekRange.map((day) => ({
             date: day,
@@ -24,8 +24,8 @@ router.post("/week", async (req, res) => {
                 .map((duty) => ({
                     id: duty._id,
                     vehicle: duty.vehicleId.name, // Get vehicle name from populated data
-                    driver: `${duty.driverId.name} (${duty.driverId.role})`, // Get driver name and role
-                    conductor: `${duty.conductorId.name} (${duty.conductorId.role})`, // Get conductor name and role
+                    driver: `${duty.driverId.name}`, // Get driver name and role
+                    conductor: `${duty.conductorId.name}`, // Get conductor name and role
                     startTime: duty.startTime,
                     duration: duty.duration,
                 })),
